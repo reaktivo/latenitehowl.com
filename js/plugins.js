@@ -96,4 +96,27 @@
 
   }
 
+  $.fn.toggler = function() {
+
+    $('*[data-show], *[data-hide]', this).each(function() {
+
+      var $this = $(this)
+
+      $this.click(function(e) {
+        e.preventDefault()
+        $($this.data('show')).removeClass('hidden')
+        $($this.data('hide')).addClass('hidden')
+      });
+
+      if ($this.data('default')) {
+        $this.click()
+      }
+
+    });
+
+    return this;
+
+  }
+
+
 })(jQuery)

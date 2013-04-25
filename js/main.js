@@ -12,22 +12,22 @@
       this.navHeight = 0
       this.navOffset = 0
 
-      this.lnh.hide()
-
-      this.updateSectionHeight()
-
-      $('#bio .text p').slant(-3)
 
       WebFontConfig.ready($.proxy(this, 'animateIn'))
 
+      $('#bio .text p').slant(-3)
+      $('#bio .text').toggler()
+
       this.window
-        .scrollTop(0)
-
-        .scroll($.proxy(this), 'scroll')
-        .scroll()
-
+        .scroll($.proxy(this, 'scroll'))
         .resize($.proxy(this, 'resize'))
-        .resize()
+
+      this.window.scrollTop(0)
+      this.lnh.hide()
+      this.updateSectionHeight()
+
+      this.resize()
+      this.scroll()
 
     },
 
@@ -70,6 +70,13 @@
           height: document.documentElement.clientHeight
         }
       }
+    },
+
+    toggleText: function(e) {
+
+      var el = $(e.currentTarget)
+
+
     }
 
   }

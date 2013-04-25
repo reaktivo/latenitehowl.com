@@ -185,18 +185,12 @@ html, body {
   background-position: right center;
 }
 
-@media only screen and (orientation : portrait) {
-  #bio {
-    background: url(../img/lnh-01-portrait.jpg) right center;
-  }
-}
-
 #bio .text {
   font-size: 24px;
   font-weight: 300;
   width: 320px;
   margin: 0 14%;
-  padding: 44px 0;
+  padding: 104px 0;
   color: #111;
   text-shadow: none;
 }
@@ -205,16 +199,17 @@ html, body {
   position: relative;
 }
 
-#bio .text .english {
-  color: #41412f;
-}
+@media only screen and (orientation : portrait) {
 
-@media only screen and (max-width: 640px) {
+  #bio {
+    background: url(../img/lnh-01-portrait.jpg) right center;
+  }
 
   #bio .text {
     margin: 0 auto;
     width: 280px;
-    padding: 0;
+    padding:  250px 0 0;
+
   }
 
   #bio .text .line {
@@ -223,11 +218,59 @@ html, body {
 
 }
 
+@media only screen and (min-width: 970px) {
+  #bio .text {
+    margin: 0 25%;
+  }
+}
+
+#bio .text a.lang-toggle {
+  color: #fff;
+  text-shadow: 0 1px 1px #000;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  padding: 5px;
+  margin-left: -5px;
+}
+
+#bio .text a.lang-toggle:hover {
+  background: #000;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
 #music {
+  padding: 60px 0;
   position: relative;
   background: url(../img/lnh-03.jpg);
   background-size: cover;
 }
+
+#music h1 {
+  text-align: center;
+}
+
+#music h1 a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 300;
+}
+
+@media only screen and (orientation: portrait) {
+  #music {
+    padding: 0;
+  }
+
+  #music h1 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 48px;
+  }
+}
+
+
 
 #music .soundcloud {
   position: absolute;
@@ -237,7 +280,9 @@ html, body {
   margin-left: -320px;
   top: 50%;
   left: 50%;
+  text-align: center;
 }
+
 
 @media only screen and (max-width: 640px) {
 
@@ -288,13 +333,14 @@ html, body {
 
 #shows .shows-list {
   padding: 80px;
+  width: 280px;
 }
 
-
-@media only screen and (max-width: 320px) {
+@media only screen and (orientation : portrait) {
 
   #shows .shows-list {
-    padding: 40px;
+    padding: 80px 0 80px;
+    margin: 0 auto;
   }
 
 }
@@ -329,6 +375,45 @@ html, body {
   z-index: 1;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
+
+#contact {
+  position: relative;
+  background: url(../img/lnh-05-landscape.jpg);
+  background-size: cover;
+}
+
+#contact .text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -125px;
+  margin-top: -135px;
+  width: 250px;
+  height: 170px;
+}
+
+@media only screen and (orientation: portrait) {
+  #contact {
+    background: url(../img/lnh-05-portrait.jpg);
+  }
+
+}
+
+#contact span {
+  width: 80px;
+  display: inline-block;
+  text-align: right;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 400;
+  margin-right: 10px;
+}
+
+#contact a {
+  color: #fff;
+  text-decoration: none;
+}
+
 
 
 
