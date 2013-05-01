@@ -5,51 +5,86 @@
     init: function() {
 
       this.window = $(window)
+      this.sections = $('.sections > section')
       this.intro = $('#intro')
       this.nav = $('nav')
       this.lnh = $('#late-nite-howl')
-      this.introHeight = this.intro.outerHeight()
       this.navHeight = 0
       this.navOffset = 0
-
 
       WebFontConfig.ready($.proxy(this, 'animateIn'))
 
       $('#bio .text p').slant(-3)
       $('#bio .text').toggler()
+      if(this.sections.length > 1) {
+        $('body').appearOnScroll()
+      }
 
       this.window
-        .scroll($.proxy(this, 'scroll'))
-        .resize($.proxy(this, 'resize'))
+        .on('scroll orientationchange', $.proxy(this, 'scroll'))
+        .resize($.proxy(this, 'resize')).resize()
 
       this.window.scrollTop(0)
-      this.lnh.hide()
       this.updateSectionHeight()
-
-      this.resize()
-      this.scroll()
+      this.setupHistory()
 
     },
 
+    setupHistory: function() {
+
+      if ( !Modernizr.history ) return;
+
+      this.sections.closestToScroll(function(el) {
+        var path = "/" + el.attr('id')
+        if (document.location.pathname != path) {
+          history.replaceState(null, null, path)
+        }
+      })
+
+      $('a', this.nav).click(function() {
+        page($(this).attr('href'));
+        return false;
+      })
+
+      page('/:section', $.proxy(this, 'section'))
+      page.start()
+    },
+
+    section: function(ctx, next) {
+      var target = $('#' + ctx.params.section)
+
+      if (target.length === 0) return next()
+
+      $.smoothScroll({
+        offset: - this.navHeight,
+        scrollTarget: target
+      })
+    },
+
     animateIn: function() {
-      this.lnh.show().animateWords()
-      this.nav.slideDown($.proxy(this, 'resize'))
+      this.showNav();
+      this.lnh
+        .css({display: 'table-cell'})
+        .animateWords()
+    },
+
+    showNav: function(delay) {
+      delay = delay || 0;
+      this.nav.delay(delay).slideDown($.proxy(this, 'resize'))
     },
 
     resize: function() {
       this.navHeight = this.nav.outerHeight()
-      this.navOffset = this.intro.outerHeight() - this.navHeight;
-      $('nav a', this.intro).smoothScroll({offset: - this.navHeight})
+      this.navOffset = this.nav.closest('section').outerHeight() - this.navHeight;
     },
 
     scroll: function() {
       this.nav.toggleClass('fixed', this.window.scrollTop() >= this.navOffset)
-      this.updateSectionHeight()
     },
 
     updateSectionHeight: function() {
       var windowHeight = this.getViewport().height;
-      $('.sections > section').each(function(i) {
+      this.sections.each(function(i) {
         var section = $(this)
         if (windowHeight > section.outerHeight()) {
           section.css({height: windowHeight})
