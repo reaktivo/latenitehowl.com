@@ -105,17 +105,12 @@
           height: document.documentElement.clientHeight
         }
       }
-    },
-
-    toggleText: function(e) {
-
-      var el = $(e.currentTarget)
-
-
     }
 
   }
 
+
+  // Call App.init when dom is ready.
   $(document).ready($.proxy(context.App, 'init'))
 
 })(jQuery, this)
