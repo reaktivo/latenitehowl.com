@@ -17,7 +17,7 @@
       $('#bio .text p').slant(-3)
       $('#bio .text').toggler()
       if(this.sections.length > 1) {
-        $('body').appearOnScroll()
+        $('.appear').appearOnScroll()
       }
 
       this.window
