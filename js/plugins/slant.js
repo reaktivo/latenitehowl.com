@@ -1,4 +1,38 @@
-(function($) {
+/*
+ * slant.js - v1.0.0 - 2013-04-22
+ * Marcel Miranda < reaktivo.com >
+ * Copyright (c) 2013; Licensed MIT
+
+  slant is a jQuery plugin that will
+  make a block of text slanted. This
+  is done by setting splitting each
+  word in a block of text and adding
+  `left: x` css to each line.
+
+
+  Usage:
+
+  // when dom ready
+  jQuery(document).ready(function($) {
+
+    // This will apply a 3px slant on
+    // each line in the paragraph.
+    $('body p').slant(-3)
+
+  })
+
+
+  Note:
+  Your css style should include the following to
+  make the slant visible:
+
+  .line { position: relative }
+
+
+*/
+
+;(function($, window, document, undefined) {
+
 
   $.fn.slant = function(slant) {
 
@@ -39,5 +73,4 @@
 
   }
 
-})(jQuery)
-
+})(jQuery, window, document);
