@@ -1,6 +1,9 @@
-(function($, context, undefined){
 
-  context.App = {
+;(function($, window, document, undefined){
+
+  window.App = {
+
+    defaultSection: 'intro',
 
     init: function() {
 
@@ -28,15 +31,29 @@
       this.updateSectionHeight()
       this.setupHistory()
 
+      var activeSection = document.location.pathname.substr(1)
+      if ( activeSection != this.defaultSection && activeSection != "") {
+        $.smoothScroll({
+          offset: - this.navHeight,
+          scrollTarget: "#" + activeSection
+        })
+      }
+
     },
 
     setupHistory: function() {
 
+      var self = this;
+
       if ( !Modernizr.history ) return;
 
       this.sections.closestToScroll(function(el) {
-        var path = "/" + el.attr('id')
+        var id = el.attr('id');
+        var path = "/" + id;
         if (document.location.pathname != path) {
+          if (id == self.defaultSection) {
+            path = "/";
+          }
           history.replaceState(null, null, path)
         }
       })
@@ -111,6 +128,6 @@
 
 
   // Call App.init when dom is ready.
-  $(document).ready($.proxy(context.App, 'init'))
+  $(document).ready($.proxy(window.App, 'init'))
 
-})(jQuery, this)
+})(jQuery, window, document);

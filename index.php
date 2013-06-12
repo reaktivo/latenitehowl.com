@@ -1,10 +1,13 @@
 <?
+  $default = 'intro';
   $sections = array('intro', 'bio', 'shows', 'music', 'contact');
-
   $section =  ltrim($_SERVER['REQUEST_URI'], '/');
 
-  if (in_array($section, $sections)) {
-    $sections = array($section);
+  $base_path = "/lnh";
+
+  if ( $section != "" && !in_array($section, $sections) ) {
+    header("Location: {$base_path}");
+    exit();
   }
 
 ?><!DOCTYPE html>
