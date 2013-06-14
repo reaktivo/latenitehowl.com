@@ -4,6 +4,7 @@
   window.App = {
 
     defaultSection: 'intro',
+    historyEnabled: true,
 
     init: function() {
 
@@ -35,7 +36,9 @@
       if ( activeSection != this.defaultSection && activeSection != "") {
         $.smoothScroll({
           offset: - this.navHeight,
-          scrollTarget: "#" + activeSection
+          scrollTarget: "#" + activeSection,
+          beforeScroll: function() { App.disableHistory() },
+          afterScroll: function() { App.enableHistory() }
         })
       }
 
@@ -50,7 +53,7 @@
       this.sections.closestToScroll(function(el) {
         var id = el.attr('id');
         var path = "/" + id;
-        if (document.location.pathname != path) {
+        if (self.historyEnabled && document.location.pathname != path) {
           if (id == self.defaultSection) {
             path = "/";
           }
@@ -67,6 +70,14 @@
       page.start()
     },
 
+    disableHistory: function() {
+      this.historyEnabled = false;
+    },
+
+    enableHistory: function() {
+      this.historyEnabled = true;
+    },
+
     section: function(ctx, next) {
       var target = $('#' + ctx.params.section)
 
@@ -74,7 +85,9 @@
 
       $.smoothScroll({
         offset: - this.navHeight,
-        scrollTarget: target
+        scrollTarget: target,
+        beforeScroll: function() { App.disableHistory() },
+        afterScroll: function() { App.enableHistory() }
       })
     },
 
